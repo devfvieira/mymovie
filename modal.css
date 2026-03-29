@@ -6,6 +6,7 @@
   --light-secondary: #ffb703;
 }
 
+/* O segredo está aqui: mudamos o estado padrão para escondido */
 #modal-overlay {
   display: flex;
   position: fixed;
@@ -15,17 +16,20 @@
   height: 100dvh;
   justify-content: center;
   align-items: center;
-}
 
-.overlay {
+  /* Esconde o modal por padrão */
   visibility: hidden;
-  transition: all 0.3s ease;
   opacity: 0;
+  pointer-events: none; /* Isso faz o clique "atravessar" o modal e chegar no input */
+  transition: all 0.3s ease;
+  z-index: 1000; /* Garante que fique acima de tudo quando abrir */
 }
 
-.open {
+/* Quando o JS adicionar a classe 'open', ele aparece e volta a aceitar cliques */
+#modal-overlay.open {
   visibility: visible;
   opacity: 1;
+  pointer-events: auto; /* Volta a aceitar cliques para poder fechar o modal */
 }
 
 #modal-background {
@@ -42,6 +46,7 @@
   background-color: var(--lightest-color);
   padding: 1rem 3rem;
   border-radius: 10px;
+  max-width: 90%; /* Evita que o modal quebre em telas pequenas */
 }
 
 #movie-title {
@@ -52,10 +57,12 @@
   display: flex;
   justify-content: center;
   padding: 1rem 0;
+  gap: 20px; /* Espaço entre o poster e os textos */
 }
 
 #movie-poster {
   border-radius: 10px;
+  max-height: 400px;
 }
 
 #movie-info {
@@ -63,6 +70,7 @@
   flex-direction: column;
   justify-content: space-around;
   max-width: 300px;
+  text-align: left; /* Garante que o texto do filme fique alinhado à esquerda */
 }
 
 #add-to-list {
