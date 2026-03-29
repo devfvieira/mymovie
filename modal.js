@@ -1,9 +1,25 @@
 const background = document.getElementById('modal-background');
 const modalContainer = document.getElementById('modal-container');
+
+let currentMovie = {};
+
 function backgroundClickHandler() {
   overlay.classList.remove('open');
 }
+
+function closeModal() {
+  overlay.classList.remove('open');
+}
+
+function addCurrentMovieToList() {
+  addToList(currentMovie);
+  updateUI(currentMovie);
+  closeModal();
+}
+
 function createModal(data) {
+  currentMovie = data;
+
   modalContainer.innerHTML = `
 <h2 id="movie-title">${data.Title} - ${data.Year}</h2>
 <section id="modal-body">
@@ -27,7 +43,8 @@ ${data.Plot}
 </div>
 </section>
 <section id="modal-footer">
-<button id="add-to-list">Adicionar à Lista</button>
+<button id="add-to-list" onclick='{addCurrentMovieToList()}'>Adicionar à Lista</button>
 </section>`;
 }
+
 background.addEventListener('click', backgroundClickHandler);
