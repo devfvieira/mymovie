@@ -5,14 +5,30 @@ const movieYear = document.getElementById('movie-year');
 
 async function searchButtonClickHandler() {
   try {
-    let url = `http://www.omdbapi.com/?apikey=${key}&t=${movieName.value
-      .split(' ')
-      .join('+')}&y=${movieYear.value}`;
+    let url = `http://www.omdbapi.com/?apikey=${key}&t=${movieNameParameterGenerator()}${movieYearParameterGenerator()}`;
     const response = await fetch(url);
     const data = await response.json();
     console.log('data: ', data);
     overlay.classList.add('open');
-  } catch (error) {}
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+function movieNameParameterGenerator() {
+  if (movieName.value === '')
+    throw new Error('O nome do filme deve ser informado'); //retorna um error
+  return movieName.value.split(' ').join('+');
+}
+
+function movieYearParameterGenerator() {
+  if (movieYear.value === '') {
+    return '';
+  }
+  if (movieYear.value.length !== 4 || Number.isNaN(Number(movieYear.value))) {
+    throw new Error('Ano do filme inválido');
+  }
+  return `&y=${movieYear.value}`;
 }
 
 searchButton.addEventListener('click', searchButtonClickHandler);
