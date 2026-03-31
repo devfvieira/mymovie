@@ -70,7 +70,8 @@
   flex-direction: column;
   justify-content: space-around;
   max-width: 300px;
-  text-align: left; /* Garante que o texto do filme fique alinhado à esquerda */
+  text-align: left;
+  padding-left: 2rem;
 }
 
 #add-to-list {
